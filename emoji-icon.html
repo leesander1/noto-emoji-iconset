@@ -1,9 +1,48 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 
+<link rel="import" href="noto-emoji-iconset.html">
+
+<script>
+'use strict';
+
+class EmojiJSON{
+    static fetch(url){
+        if (typeof this.promise !== "undefined") {
+            return this.promise;
+        }
+
+        this.promise = new Promise((resolve, reject) => {
+            fetch(url).then((response) => {
+                return response.json();
+            }).then((json) => {
+                this.data = json;
+                resolve(json);
+            });
+        });
+        return this.promise;
+    }
+}
+</script>
+
 <dom-module id="emoji-icon">
 
   <template>
+
+    <style>
+        iron-icon {
+            --iron-icon-fill-color: var(--emoji-icon-fill-color, currentColor);
+            --iron-icon-stroke-color: var(--emoji-icon-stroke-color, none);
+
+            --iron-icon-width: var(--emoji-icon-width, 24px);
+            --iron-icon-height: var(--emoji-icon-height, 24px);
+            --iron-icon: {
+                @apply(--emoji-icon);
+            };
+        }
+    </style>
+
     <iron-icon icon="emoji:{{icon}}"></iron-icon>
+
   </template>
 
   <script>
@@ -26,12 +65,23 @@
         };
       }
 
-      _onEmojiChange(shortname) {
-          fetch(this.resolveUrl('emoji.json')).then((response) => {
-              return response.json();
-          }).then((json) => {
-              this.icon = json[shortname];
+      attached() {
+          var url = this.resolveUrl('emoji.json');
+          EmojiJSON.fetch(url).then((json) => {
+              if(typeof this.onloademoji !== "undefined"){
+                  this.onloademoji(json);
+              }
           });
+      }
+
+      _onEmojiChange(shortname) {
+          if (typeof EmojiJSON.data === "undefined") {
+              this.onloademoji = (json) => {
+                  this.icon = json[shortname];
+              }
+          } else {
+              this.icon = EmojiJSON.data[shortname];
+          }
       }
 
     }
