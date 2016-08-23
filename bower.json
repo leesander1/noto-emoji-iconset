@@ -5,7 +5,10 @@
     "raulsntos <raulsntos@gmail.com>"
   ],
   "description": "",
-  "main": "",
+  "main": [
+    "noto-emoji-iconset.html",
+    "emoji-icon.html"
+  ],
   "license": "MIT",
   "ignore": [
     "**/.*",
