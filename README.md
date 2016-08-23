@@ -4,6 +4,8 @@ Iconset for [`iron-icon`](https://elements.polymer-project.org/elements/iron-ico
 
 [See for yourself](https://raulsntos.github.io/noto-emoji-iconset/components/noto-emoji-iconset/demo).
 
+![Emojis](https://github.com/raulsntos/noto-emoji-iconset/raw/master/hero.png)
+
 ## How to install
 You can clone this repo directly to your server but I recommend using bower:
 
