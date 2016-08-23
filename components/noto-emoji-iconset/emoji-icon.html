@@ -1,0 +1,131 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="noto-emoji-iconset.html">
+
+<script>
+'use strict';
+
+class EmojiJSON{
+    static fetch(url){
+        if (typeof this.promise !== "undefined") {
+            return this.promise;
+        }
+
+        this.promise = new Promise((resolve, reject) => {
+            fetch(url).then((response) => {
+                return response.json();
+            }).then((json) => {
+                this.data = json;
+                resolve(json);
+            });
+        });
+        return this.promise;
+    }
+}
+</script>
+
+<!--
+`emoji-icon` includes the `noto-emoji-iconset` by default and uses a dictionary to load emojis using a shortname rather than the actual unicode emoji
+It's much more convenient to work with emojis with this element, it works exactly like `iron-icon`.
+See [iron-icon](https://elements.polymer-project.org/elements/iron-icon) for more information about working with icons.
+
+### Usage
+
+```html
+<emoji-icon emoji="tada"></emoji-icon>
+```
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--emoji-icon` | Mixin applied to the icon | {}
+`--emoji-icon-width` | Width of the icon | `24px`
+`--emoji-icon-height` | Height of the icon | `24px`
+`--emoji-icon-fill-color` | Fill color of the svg icon | `currentcolor`
+`--emoji-icon-stroke-color` | Stroke color of the svg icon | none
+
+@group Noto Emoji elements
+@element emoji-icon
+@demo demo/index.html
+@homepage https://github.com/raulsntos/noto-emoji-iconset
+-->
+
+<dom-module id="emoji-icon">
+
+  <template>
+
+    <style>
+        :host {
+            display: inline-block;
+        }
+
+        iron-icon {
+            --iron-icon-fill-color: var(--emoji-icon-fill-color, currentColor);
+            --iron-icon-stroke-color: var(--emoji-icon-stroke-color, none);
+
+            --iron-icon-width: var(--emoji-icon-width, 24px);
+            --iron-icon-height: var(--emoji-icon-height, 24px);
+            --iron-icon: {
+                @apply(--emoji-icon);
+            };
+        }
+    </style>
+
+    <iron-icon icon="emoji:{{icon}}"></iron-icon>
+
+  </template>
+
+  <script>
+  (function() {
+
+    'use strict';
+
+    class EmojiIcon {
+
+      beforeRegister() {
+        this.is = 'emoji-icon';
+        this.properties = {
+
+         /**
+         * The shortname of the emoji to use. Example:
+         * `smiley`.
+         */
+          emoji: {
+            type: String,
+            observer: '_onEmojiChange',
+            value: null
+          }
+
+        };
+      }
+
+      attached() {
+          var url = this.resolveUrl('emoji.json');
+          EmojiJSON.fetch(url).then((json) => {
+              if(typeof this.onloademoji !== "undefined"){
+                  this.onloademoji(json);
+              }
+          });
+      }
+
+      _onEmojiChange(shortname) {
+          if (typeof EmojiJSON.data === "undefined") {
+              this.onloademoji = (json) => {
+                  this.icon = json[`:${shortname}:`];
+              }
+          } else {
+              this.icon = EmojiJSON.data[`:${shortname}:`];
+          }
+      }
+
+    }
+
+    Polymer(EmojiIcon);
+
+  })();
+  </script>
+
+</dom-module>

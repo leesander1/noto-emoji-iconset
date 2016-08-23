@@ -1,0 +1,41 @@
+{
+  "name": "noto-emoji-iconset",
+  "homepage": "https://github.com/raulsntos/noto-emoji-iconset",
+  "authors": [
+    "raulsntos <raulsntos@gmail.com>"
+  ],
+  "description": "",
+  "main": [
+    "noto-emoji-iconset.html",
+    "emoji-icon.html"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "noto-emoji"
+  ],
+  "keywords": [
+    "web-components"
+  ],
+  "dependencies": {
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.9",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.10"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.7"
+  },
+  "_release": "3481b9fa78",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "3481b9fa78cdf215c328ffc9f4dcbac0078c1f22"
+  },
+  "_source": "git://github.com/raulsntos/noto-emoji-iconset.git",
+  "_target": "master",
+  "_originalSource": "raulsntos/noto-emoji-iconset",
+  "_direct": true
+}
