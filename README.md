@@ -2,10 +2,26 @@
 
 Iconset for [`iron-icon`](https://elements.polymer-project.org/elements/iron-icon) to use Google's Emojis.
 
+[See for yourself](https://raulsntos.github.io/noto-emoji-iconset).
+
 ## How to install
 You can clone this repo directly to your server but I recommend using bower:
 
 `bower install --save raulsntos/noto-emoji-iconset`
+
+## Important note
+The emojis will not render properly if you don't use Shadow DOM so be sure to enable it.
+
+**The good news:** Polymer will switch to Shadow DOM by default eventually (soon).
+
+Take a look at the [demo](https://github.com/raulsntos/noto-emoji-iconset/blob/master/demo/index.html) to see how I'm using the iconset. Just be sure to add this code before loading Polymer (or every element implemented with Polymer):
+```html
+<script>
+window.Polymer = {
+  dom: 'shadow'
+}
+</script>
+```
 
 ## How to use the set
 To use the set simply import this set and use it like any other iconset. Use the prefix **emoji** followed by colon (**:**) and the emoji in unicode (`🎉`). Example:
