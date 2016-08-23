@@ -29,6 +29,10 @@ class EmojiJSON{
   <template>
 
     <style>
+        :host {
+            display: inline-block;
+        }
+
         iron-icon {
             --iron-icon-fill-color: var(--emoji-icon-fill-color, currentColor);
             --iron-icon-stroke-color: var(--emoji-icon-stroke-color, none);
@@ -77,10 +81,10 @@ class EmojiJSON{
       _onEmojiChange(shortname) {
           if (typeof EmojiJSON.data === "undefined") {
               this.onloademoji = (json) => {
-                  this.icon = json[shortname];
+                  this.icon = json[`:${shortname}:`];
               }
           } else {
-              this.icon = EmojiJSON.data[shortname];
+              this.icon = EmojiJSON.data[`:${shortname}:`];
           }
       }
 

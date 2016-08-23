@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"os/exec"
 	"regexp"
@@ -33,6 +35,18 @@ func updateNotoEmoji(update bool) {
 	}
 }
 
+func unicodeToEmoji(unicode string, separator string) (string, error) {
+	unicodeStr := strings.Split(unicode, separator)
+	for index, unicodeChar := range unicodeStr {
+		hex, err := strconv.ParseInt(unicodeChar, 16, 64)
+		if err != nil {
+			return "", err
+		}
+		unicodeStr[index] = string(hex)
+	}
+	return strings.Join(unicodeStr, ""), nil
+}
+
 func fileToEmoji(filePath string, fileName string) (*Emoji, error) {
 	emoji := &Emoji{}
 
@@ -58,16 +72,11 @@ func fileToEmoji(filePath string, fileName string) (*Emoji, error) {
 	code = regexpFooter.ReplaceAllString(code, "")
 
 	unicode := fileName[len("emoji_u") : len(fileName)-len(".svg")]
-	unicodeStr := strings.Split(unicode, "_")
-	for index, unicodeChar := range unicodeStr {
-		hex, err := strconv.ParseInt(unicodeChar, 16, 64)
-		if err != nil {
-			return nil, err
-		}
-		unicodeStr[index] = string(hex)
+	unicodedEmoji, err := unicodeToEmoji(unicode, "_")
+	if err != nil {
+		return nil, err
 	}
-
-	emoji.Unicode = strings.Join(unicodeStr, "")
+	emoji.Unicode = unicodedEmoji
 	emoji.SVG = code
 
 	return emoji, nil
@@ -123,12 +132,65 @@ func writeIconset(data []Emoji) {
 	}
 }
 
+// Emojione represents an emoji in Emojione data
+type Emojione struct {
+	Unicode   string `json:"unicode"`
+	Shortname string `json:"shortname"`
+}
+
+func writeDictionary() {
+	fmt.Println("Writing Emoji Dictionary...")
+	resp, err := http.Get("https://raw.githubusercontent.com/Ranks/emojione/master/emoji.json")
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	var emojione map[string]Emojione
+	err = json.Unmarshal(data, &emojione)
+	if err != nil {
+		panic(err)
+	}
+
+	emojis := make(map[string]string)
+
+	fmt.Println("Parsing ", len(emojione), " emojis...")
+
+	index := 0
+	for _, emoji := range emojione {
+		unicodedEmoji, err := unicodeToEmoji(emoji.Unicode, "-")
+		if err != nil {
+			fmt.Println(err.Error())
+			fmt.Println("Error parsing element ", index+1, " of ", len(emojione))
+			continue
+		}
+		emojis[emoji.Shortname] = unicodedEmoji
+		fmt.Println("Parsed element ", index+1, " of ", len(emojione))
+		index++
+	}
+
+	fmt.Println("Parsing emojis as JSON...")
+	jsonData, err := json.Marshal(emojis)
+	if err != nil {
+		panic(err)
+	}
+
+	ioutil.WriteFile("emoji.json", jsonData, 0644)
+	fmt.Println("emoji.json file created")
+}
+
 func main() {
-	updateNoto := flag.Bool("update-noto", false, "update noto emoji")
+	updateNoto := flag.Bool("update", false, "update noto emoji")
 
 	flag.Parse()
 
 	updateNotoEmoji(*updateNoto)
 	emojis := readEmojis()
 	writeIconset(emojis)
+	writeDictionary()
 }
