@@ -53,3 +53,4 @@ You can build the iconset yourself by using the build.go file included in this r
 
 ## Known issues
 - I'm using the SVG icons provided by Google in the [Noto repository](https://github.com/googlei18n/noto-emoji) and they are currently outdated so there are a few missing emojis, when Google updates their repository I'll include the new emoji. If the emoji icon is not found. If you want to know the state of this issue check the Noto repository issue [#62](https://github.com/googlei18n/noto-emoji/issues/62).
+- I would prefer to make `emoji-icon` extend from `iron-icon` instead of creating a new element with an `iron-icon` tag inside and redefining every CSS variable but Polymer does not seem to support extending custom elements yet. See issue [#2280](https://github.com/Polymer/polymer/issues/2280) in the Polymer repo.
