@@ -1,27 +1,3 @@
-<!--
-`emoji-icon` includes the `noto-emoji-iconset` by default and uses a dictionary to load emojis using a shortname rather than the actual unicode emoji
-It's much more convenient to work with emojis with this element, it works exactly like `iron-icon`.
-See [iron-icon](https://elements.polymer-project.org/elements/iron-icon) for more information about working with icons.
-
-### Usage
-```html
-<emoji-icon emoji="tada"></emoji-icon>
-```
-### Styling
-The following custom properties are available for styling:
-Custom property | Description | Default
-----------------|-------------|----------
-`--emoji-icon` | Mixin applied to the icon | {}
-`--emoji-icon-width` | Width of the icon | `24px`
-`--emoji-icon-height` | Height of the icon | `24px`
-`--emoji-icon-fill-color` | Fill color of the svg icon | `currentcolor`
-`--emoji-icon-stroke-color` | Stroke color of the svg icon | none
-
-@group Noto Emoji elements
-@element emoji-icon
-@demo demo/index.html
--->
-
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="noto-emoji-iconset.html">
@@ -47,6 +23,35 @@ class EmojiJSON{
     }
 }
 </script>
+
+<!--
+`emoji-icon` includes the `noto-emoji-iconset` by default and uses a dictionary to load emojis using a shortname rather than the actual unicode emoji
+It's much more convenient to work with emojis with this element, it works exactly like `iron-icon`.
+See [iron-icon](https://elements.polymer-project.org/elements/iron-icon) for more information about working with icons.
+
+### Usage
+
+```html
+<emoji-icon emoji="tada"></emoji-icon>
+```
+
+### Styling
+
+The following custom properties are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--emoji-icon` | Mixin applied to the icon | {}
+`--emoji-icon-width` | Width of the icon | `24px`
+`--emoji-icon-height` | Height of the icon | `24px`
+`--emoji-icon-fill-color` | Fill color of the svg icon | `currentcolor`
+`--emoji-icon-stroke-color` | Stroke color of the svg icon | none
+
+@group Noto Emoji elements
+@element emoji-icon
+@demo demo/index.html
+@homepage https://github.com/raulsntos/noto-emoji-iconset
+-->
 
 <dom-module id="emoji-icon">
 
