@@ -1,6 +1,6 @@
 # noto-emoji-iconset
 
-Iconset for [`iron-icon`](https://elements.polymer-project.org/elements/iron-icon) to use Google's Emojis. [See the Documentation](https://raulsntos.github.io/noto-emoji-iconset)
+Iconset for [`iron-icon`](https://elements.polymer-project.org/elements/iron-icon) to use Google's Emojis. [See the Documentation](https://raulsntos.github.io/noto-emoji-iconset).
 
 [See for yourself](https://raulsntos.github.io/noto-emoji-iconset/components/noto-emoji-iconset/demo).
 
