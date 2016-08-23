@@ -22,13 +22,20 @@ type Emoji struct {
 	SVG     string
 }
 
-func updateNotoEmoji(update bool) {
-	_, err := os.Stat(notoDirectory)
+func updateFile(update bool, path string) bool {
+	_, err := os.Stat(path)
 	exists := !os.IsNotExist(err)
 	if exists && update {
-		os.RemoveAll(notoDirectory)
+		os.RemoveAll(path)
 	}
 	if !exists || update {
+		return true
+	}
+	return false
+}
+
+func updateNotoEmoji(update bool) {
+	if updateFile(update, notoDirectory) {
 		fmt.Println("Downloading noto-emoji...")
 		exec.Command("git", "clone", "https://github.com/googlei18n/noto-emoji", notoDirectory).Run()
 		fmt.Println("noto-emoji finished downloading")
@@ -184,13 +191,20 @@ func writeDictionary() {
 	fmt.Println("emoji.json file created")
 }
 
+func updateDictionary(update bool) {
+	if updateFile(update, "emoji.json") {
+		writeDictionary()
+	}
+}
+
 func main() {
-	updateNoto := flag.Bool("update", false, "update noto emoji")
+	updateNoto := flag.Bool("update-noto", false, "update noto emoji")
+	updateJSON := flag.Bool("update-json", false, "update emoji dictionary")
 
 	flag.Parse()
 
 	updateNotoEmoji(*updateNoto)
 	emojis := readEmojis()
 	writeIconset(emojis)
-	writeDictionary()
+	updateDictionary(*updateJSON)
 }
