@@ -18,6 +18,9 @@
     "tests",
     "noto-emoji"
   ],
+  "keywords": [
+    "web-components"
+  ],
   "dependencies": {
     "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.9",
     "iron-icon": "PolymerElements/iron-icon#^1.0.10"
