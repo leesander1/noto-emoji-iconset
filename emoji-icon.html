@@ -1,0 +1,44 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="emoji-icon">
+
+  <template>
+    <iron-icon icon="emoji:{{icon}}"></iron-icon>
+  </template>
+
+  <script>
+  (function() {
+
+    'use strict';
+
+    class EmojiIcon {
+
+      beforeRegister() {
+        this.is = 'emoji-icon';
+        this.properties = {
+
+          emoji: {
+            type: String,
+            observer: '_onEmojiChange',
+            value: null
+          }
+
+        };
+      }
+
+      _onEmojiChange(shortname) {
+          fetch(this.resolveUrl('emoji.json')).then((response) => {
+              return response.json();
+          }).then((json) => {
+              this.icon = json[shortname];
+          });
+      }
+
+    }
+
+    Polymer(EmojiIcon);
+
+  })();
+  </script>
+
+</dom-module>

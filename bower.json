@@ -1,0 +1,22 @@
+{
+  "name": "noto-emoji-iconset",
+  "homepage": "https://github.com/raulsntos/noto-emoji-iconset",
+  "authors": [
+    "raulsntos <raulsntos@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "noto-emoji"
+  ],
+  "dependencies": {
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.9",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.10"
+  }
+}

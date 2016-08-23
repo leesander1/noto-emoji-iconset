@@ -1,0 +1,37 @@
+&#x1f411;
+🐑
+🤑
+&#x1f920;
+&#x1f911;
+<script>
+    function emojiToHex(str){
+        return str.charCodeAt(0).toString(16);
+    }
+    function hexToEmoji(str){
+        return String.fromCharCode(parseInt(str, 16))
+    }
+    function testEmojiToHex(){
+        var hex = emojiToHex("🐑");
+        if(hex !== "1f411"){
+            return false;
+        }
+        return true;
+    }
+    function testHexToEmoji(){
+        var emoji = hexToEmoji("1f911");
+        if(emoji !== "🤑"){
+            return false;
+        }
+        return true;
+    }
+    function test(name, succeed){
+        let result = succeed ? 'OK' : 'FAIL';
+        let color = succeed ? 'green' : 'red';
+        console.log(`${name}:   %c${result}`, `color: ${color};`);
+    }
+    function testAll(){
+        test("Test Emoji To Hexadecimal", testEmojiToHex());
+        test("Test Hexadecimal To Emoji", testHexToEmoji());
+    }
+    testAll();
+</script>
