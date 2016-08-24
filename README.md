@@ -67,7 +67,21 @@ I know! That's why there's also a Polymer element included `emoji-icon` which le
 Yes! If you are using `iron-icon`, see how to do it in their [documentation](https://elements.polymer-project.org/elements/iron-icon#styling). If you are using `emoji-icon` you can also find how in `iron-icon`'s documentation because it's the exactly the same but replacing `iron` with `emoji` in the CSS variables.
 
 ## How to build the iconset
-You can build the iconset yourself by using the build.go file included in this repository, simple use `go run build.go`. Note that you need to have `git` installed since the script will clone the Noto GitHub repository (you can also download the repository manually, the script will not clone it as long as a folder named `noto-emoji` exists in the root of this project). If you have already cloned or downloaded the Noto repository but want to update it to the latest version use the flag `-update` when running the script: `go run build.go -update`. The script will replace the `noto-emoji-iconset.html` file.
+### Requirements
+- [Go](https://golang.org/)
+- [Git](https://git-scm.com/)
+
+### What it does
+You can build the iconset yourself by using the build.go file included in this repository, simple use `go run build.go`.
+
+The script uses `git` to clone the Noto GitHub repository (you can also download the repository manually, the script will not clone it as long as a folder named `noto-emoji` exists in the root of this project).
+
+If you have already cloned or downloaded the Noto repository but want to update it to the latest version use the flag `-update` when running the script: `go run build.go -update` to overwrite the folder (or you can delete it manually and then run the script).
+
+The script will overwrite the `noto-emoji-iconset.html` and `emoji.json` files without warning.
+
+### You might not want to build the element yourself, use the one downloaded by bower
+It might take a few minutes since it has to download the entire Noto repository, go through over 800 svg images and then download and parse a JSON that contains over a 1000 elements. Also, the script was not built to be fast, I implemented it quickly so there might be a few things that could've been done better, the purpose of the script is to automate the process of transforming the latest version of Google's Noto Emoji into a Polymer element, once the script has fullfilled its purposed there is no need for it anymore (until Google updates the Noto repository), so it's likely that no user will ever run the go script but me in order to update the element.
 
 ## Known issues
 - I'm using the SVG icons provided by Google in the [Noto repository](https://github.com/googlei18n/noto-emoji) and they are currently outdated so there are a few missing emojis, when Google updates their repository I'll include the new emoji. If you want to know the state of this issue check the Noto repository issue [#62](https://github.com/googlei18n/noto-emoji/issues/62).
