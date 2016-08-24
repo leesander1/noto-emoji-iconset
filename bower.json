@@ -19,7 +19,10 @@
     "noto-emoji"
   ],
   "keywords": [
-    "web-components"
+    "web-components",
+    "noto-emoji",
+    "emoji",
+    "unicode"
   ],
   "dependencies": {
     "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.9",
