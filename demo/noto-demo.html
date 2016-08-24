@@ -7,48 +7,48 @@
   <template>
 
     <style>
-        emoji-icon {
-            --emoji-icon-width: 32px;
-            --emoji-icon-height: 32px;
-        }
-        .emoji {
-            margin: 2px;
-            padding: 16px;
-            padding-bottom: 16px;
-            position: relative;
-            display: inline-block;
-            border-radius: 2px;
-        }
-        .emoji .shortname {
-            position: absolute;
-            bottom: -8px;
-            left: -8px;
-            right: -8px;
-            text-align: center;
-            font-size: 50%;
-            color: #fff;
-            background: #333;
-            padding: 4px;
-            border-radius: 5px;
-            overflow: visible;
-            visibility: hidden;
-        }
+      emoji-icon {
+        --emoji-icon-width: 32px;
+        --emoji-icon-height: 32px;
+      }
+      .emoji {
+        margin: 2px;
+        padding: 16px;
+        padding-bottom: 16px;
+        position: relative;
+        display: inline-block;
+        border-radius: 2px;
+      }
+      .emoji .shortname {
+        position: absolute;
+        bottom: -8px;
+        left: -8px;
+        right: -8px;
+        text-align: center;
+        font-size: 50%;
+        color: #fff;
+        background: #333;
+        padding: 4px;
+        border-radius: 5px;
+        overflow: visible;
+        visibility: hidden;
+      }
 
-        .emoji:hover {
-            z-index: 1;
-            transform: scale(2);
-            background-color: #eee;
-        }
-        .emoji:hover .shortname {
-            visibility: visible;
-        }
+      .emoji:hover {
+        z-index: 1;
+        transform: scale(2);
+        background-color: #eee;
+      }
+      .emoji:hover .shortname {
+        visibility: visible;
+      }
     </style>
 
     <template is="dom-repeat" items="{{emojis}}">
-        <div class="emoji">
-            <emoji-icon emoji="{{item}}"></emoji-icon>
-            <div class="shortname">{{item}}</div>
-        </div>
+      <div class="emoji">
+        <emoji-icon emoji="{{item}}"></emoji-icon>
+        <div class="shortname">{{item}}</div>
+      </div>
     </template>
 
   </template>
@@ -65,12 +65,12 @@
       }
 
       attached() {
-          var url = this.resolveUrl('../emoji.json');
-          EmojiJSON.fetch(url).then((json) => {
-              this.emojis = Object.keys(json).map((shortname) => {
-                  return shortname.substr(1,shortname.length-2);
-              });
+        var url = this.resolveUrl('../emoji.json');
+        EmojiJSON.fetch(url).then((json) => {
+          this.emojis = Object.keys(json).map((shortname) => {
+            return shortname.substr(1, shortname.length - 2);
           });
+        });
       }
 
     }

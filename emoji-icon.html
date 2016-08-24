@@ -6,21 +6,21 @@
 'use strict';
 
 class EmojiJSON{
-    static fetch(url){
-        if (typeof this.promise !== "undefined") {
-            return this.promise;
-        }
-
-        this.promise = new Promise((resolve, reject) => {
-            fetch(url).then((response) => {
-                return response.json();
-            }).then((json) => {
-                this.data = json;
-                resolve(json);
-            });
-        });
-        return this.promise;
+  static fetch(url) {
+    if (typeof this.promise !== 'undefined') {
+      return this.promise;
     }
+
+    this.promise = new Promise((resolve, reject) => {
+      fetch(url).then((response) => {
+        return response.json();
+      }).then((json) => {
+        this.data = json;
+        resolve(json);
+      });
+    });
+    return this.promise;
+  }
 }
 </script>
 
@@ -58,20 +58,20 @@ Custom property | Description | Default
   <template>
 
     <style>
-        :host {
-            display: inline-block;
-        }
+      :host {
+        display: inline-block;
+      }
 
-        iron-icon {
-            --iron-icon-fill-color: var(--emoji-icon-fill-color, currentColor);
-            --iron-icon-stroke-color: var(--emoji-icon-stroke-color, none);
+      iron-icon {
+        --iron-icon-fill-color: var(--emoji-icon-fill-color, currentColor);
+        --iron-icon-stroke-color: var(--emoji-icon-stroke-color, none);
 
-            --iron-icon-width: var(--emoji-icon-width, 24px);
-            --iron-icon-height: var(--emoji-icon-height, 24px);
-            --iron-icon: {
-                @apply(--emoji-icon);
-            };
-        }
+        --iron-icon-width: var(--emoji-icon-width, 24px);
+        --iron-icon-height: var(--emoji-icon-height, 24px);
+        --iron-icon: {
+          @apply(--emoji-icon);
+        };
+      }
     </style>
 
     <iron-icon icon="emoji:{{icon}}"></iron-icon>
@@ -89,36 +89,44 @@ Custom property | Description | Default
         this.is = 'emoji-icon';
         this.properties = {
 
-         /**
-         * The shortname of the emoji to use. Example:
-         * `smiley`.
-         */
+          /**
+           * The shortname of the emoji to use. Example:
+           * `smiley`.
+           */
           emoji: {
             type: String,
-            observer: '_onEmojiChange',
-            value: null
+            observer: '_onEmojiChange'
+          },
+
+          /**
+           * The icon that will be used for `iron-icon`
+           * after translating the shortname.
+           */
+          icon: {
+            type: String,
+            readOnly: true
           }
 
         };
       }
 
       attached() {
-          var url = this.resolveUrl('emoji.json');
-          EmojiJSON.fetch(url).then((json) => {
-              if(typeof this.onloademoji !== "undefined"){
-                  this.onloademoji(json);
-              }
-          });
+        var url = this.resolveUrl('emoji.json');
+        EmojiJSON.fetch(url).then((json) => {
+          if (typeof this.onloademoji !== 'undefined') {
+            this.onloademoji(json);
+          }
+        });
       }
 
       _onEmojiChange(shortname) {
-          if (typeof EmojiJSON.data === "undefined") {
-              this.onloademoji = (json) => {
-                  this.icon = json[`:${shortname}:`];
-              }
-          } else {
-              this.icon = EmojiJSON.data[`:${shortname}:`];
-          }
+        if (typeof EmojiJSON.data === 'undefined') {
+          this.onloademoji = (json) => {
+            this.icon = json[`:${shortname}:`];
+          };
+        } else {
+          this.icon = EmojiJSON.data[`:${shortname}:`];
+        }
       }
 
     }
