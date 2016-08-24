@@ -186,9 +186,9 @@ func writeDictionary() {
 
 	index := 0
 	for _, emoji := range emojione {
-		unicodedEmoji, err := unicodeToEmoji(emoji.Unicode, "-")
-		if err != nil {
-			fmt.Println(err.Error())
+		unicodedEmoji, er := unicodeToEmoji(emoji.Unicode, "-")
+		if er != nil {
+			fmt.Println(er.Error())
 			fmt.Println("Error parsing element ", index+1, " of ", len(emojione))
 			continue
 		}
