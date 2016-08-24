@@ -70,9 +70,10 @@ Yes! If you are using `iron-icon`, see how to do it in their [documentation](htt
 ### Requirements
 - [Go](https://golang.org/)
 - [Git](https://git-scm.com/)
-You can build the iconset yourself by using the build.go file included in this repository, simple use `go run build.go`.
 
 ### What it does
+You can build the iconset yourself by using the build.go file included in this repository, simple use `go run build.go`.
+
 The script uses `git` to clone the Noto GitHub repository (you can also download the repository manually, the script will not clone it as long as a folder named `noto-emoji` exists in the root of this project).
 
 If you have already cloned or downloaded the Noto repository but want to update it to the latest version use the flag `-update` when running the script: `go run build.go -update` to overwrite the folder (or you can delete it manually and then run the script).
