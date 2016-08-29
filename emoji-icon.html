@@ -1,8 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <link rel="import" href="noto-emoji-iconset.html">
+<link rel="import" href="emoji-dictionary.html">
 
-<script>
+<!--<script>
 'use strict';
 
 class EmojiJSON{
@@ -22,7 +23,7 @@ class EmojiJSON{
     return this.promise;
   }
 }
-</script>
+</script>-->
 
 <!--
 `emoji-icon` includes the `noto-emoji-iconset` by default and uses a dictionary to load emojis using a shortname rather than the actual unicode emoji
@@ -110,23 +111,11 @@ Custom property | Description | Default
         };
       }
 
-      attached() {
-        var url = this.resolveUrl('emoji.json');
-        EmojiJSON.fetch(url).then((json) => {
-          if (typeof this.onloademoji !== 'undefined') {
-            this.onloademoji(json);
-          }
-        });
-      }
-
       _onEmojiChange(shortname) {
-        if (typeof EmojiJSON.data === 'undefined') {
-          this.onloademoji = (json) => {
-            this.icon = json[`:${shortname}:`];
-          };
-        } else {
-          this.icon = EmojiJSON.data[`:${shortname}:`];
+        if (shortname[0] != ':' || shortname[shortname.length-1] != ':'){
+          shortname = `:${shortname}:`;
         }
+        this._setIcon(EmojiJSON[shortname]);
       }
 
     }

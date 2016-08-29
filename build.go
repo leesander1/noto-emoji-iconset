@@ -203,19 +203,42 @@ func writeDictionary() {
 		panic(err)
 	}
 
-	ioutil.WriteFile("emoji.json", jsonData, 0644)
-	fmt.Println("emoji.json file created")
+	content := `<!--
+` + "`emoji-dictionary`" + ` imports the Emojione JSON dictionary to translate shortnames to unicode emoji.
+
+@group Noto Emoji elements
+@pseudoElement emoji-dictionary
+@demo demo/index.html
+@homepage https://github.com/raulsntos/noto-emoji-iconset
+-->
+<script>window.EmojiJSON = {{.}};</script>`
+
+	/*ioutil.WriteFile("emoji.json", jsonData, 0644)*/
+
+	t := template.New("t")
+	t, err = t.Parse(content)
+	if err != nil {
+		panic(err)
+	}
+
+	file, err := os.Create("emoji-dictionary.html")
+	err = t.Execute(file, string(jsonData))
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("emoji-dictionary.html file created")
 }
 
 func updateDictionary(update bool) {
-	if updateFile(update, "emoji.json") {
+	if updateFile(update, "emoji-dictionary.html") {
 		writeDictionary()
 	}
 }
 
 func main() {
 	updateNoto := flag.Bool("update-noto", false, "update noto emoji")
-	updateJSON := flag.Bool("update-json", false, "update emoji dictionary")
+	updateJSON := flag.Bool("update-dictionary", false, "update emoji dictionary")
 
 	flag.Parse()
 

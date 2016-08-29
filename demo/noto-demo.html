@@ -65,12 +65,7 @@
       }
 
       attached() {
-        var url = this.resolveUrl('../emoji.json');
-        EmojiJSON.fetch(url).then((json) => {
-          this.emojis = Object.keys(json).map((shortname) => {
-            return shortname.substr(1, shortname.length - 2);
-          });
-        });
+        this.emojis = Object.keys(EmojiJSON);
       }
 
     }
