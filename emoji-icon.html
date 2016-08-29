@@ -3,28 +3,6 @@
 <link rel="import" href="noto-emoji-iconset.html">
 <link rel="import" href="emoji-dictionary.html">
 
-<!--<script>
-'use strict';
-
-class EmojiJSON{
-  static fetch(url) {
-    if (typeof this.promise !== 'undefined') {
-      return this.promise;
-    }
-
-    this.promise = new Promise((resolve, reject) => {
-      fetch(url).then((response) => {
-        return response.json();
-      }).then((json) => {
-        this.data = json;
-        resolve(json);
-      });
-    });
-    return this.promise;
-  }
-}
-</script>-->
-
 <!--
 `emoji-icon` includes the `noto-emoji-iconset` by default and uses a dictionary to load emojis using a shortname rather than the actual unicode emoji
 It's much more convenient to work with emojis with this element, it works exactly like `iron-icon`.
