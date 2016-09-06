@@ -1,3 +1,17 @@
+// Copyright 2016 Raul Santos Lebrato
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 import (
@@ -115,6 +129,23 @@ func readEmojis() []Emoji {
 
 func writeIconset(data []Emoji) {
 	content := `<!--
+@license
+Copyright 2016 Raul Santos Lebrato. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
+
+<!--
 ` + "`noto-emoji-iconset`" + ` imports the Google emojis from Noto as an iconset you can use with the ` + "`iron-icon`" + ` element.
 See [iron-icon](https://elements.polymer-project.org/elements/iron-icon) for more information about working with icons.
 You can also use the [` + "`emoji-icon`" + `](#emoji-icon) element to use emojis more conveniently!
@@ -130,8 +161,6 @@ You can also use the [` + "`emoji-icon`" + `](#emoji-icon) element to use emojis
 @demo demo/index.html
 @homepage https://github.com/raulsntos/noto-emoji-iconset
 -->
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
 
 <iron-iconset-svg name="emoji" size="128">
 
@@ -204,6 +233,20 @@ func writeDictionary() {
 	}
 
 	content := `<!--
+@license
+Copyright 2016 Raul Santos Lebrato. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
 ` + "`emoji-dictionary`" + ` imports the Emojione JSON dictionary to translate shortnames to unicode emoji.
 
 @group Noto Emoji elements
